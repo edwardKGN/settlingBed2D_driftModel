@@ -1,0 +1,79 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 6-fa1285188035
+Exec   : blockMesh
+Date   : Jul 15 2021
+Time   : 10:53:17
+Host   : "edwardkgn-VirtualBox"
+PID    : 32620
+I/O    : uncollated
+Case   : /home/edwardkgn/OpenFOAM/edwardkgn-6/run/subbranch_toy_multiPhase_shrinkingParticle/2_TEST_settlingBed2D_multPh_polyDisp_driftModel_noEffect_01
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Creating block mesh from
+    "/home/edwardkgn/OpenFOAM/edwardkgn-6/run/subbranch_toy_multiPhase_shrinkingParticle/2_TEST_settlingBed2D_multPh_polyDisp_driftModel_noEffect_01/system/blockMeshDict"
+Creating block edges
+No non-planar block faces defined
+Creating topology blocks
+Creating topology patches
+
+Reading patches section
+
+Creating block mesh topology
+
+Reading physicalType from existing boundary file
+
+Default patch type set to empty
+
+Check topology
+
+	Basic statistics
+		Number of internal faces : 0
+		Number of boundary faces : 6
+		Number of defined boundary faces : 6
+		Number of undefined boundary faces : 0
+	Checking patch -> block consistency
+
+Creating block offsets
+Creating merge list .
+
+Creating polyMesh from blockMesh
+Creating patches
+Creating cells
+Creating points with scale 1
+    Block 0 cell size :
+        i : 0.005 .. 0.005
+        j : 0.005 .. 0.005
+        k : 0.02 .. 0.02
+
+
+Writing polyMesh
+----------------
+Mesh Information
+----------------
+  boundingBox: (0 0 -0.01) (0.15 1 0.01)
+  nPoints: 12462
+  nCells: 6000
+  nFaces: 24230
+  nInternalFaces: 11770
+----------------
+Patches
+----------------
+  patch 0 (start: 11770 size: 30) name: inlet
+  patch 1 (start: 11800 size: 30) name: outlet
+  patch 2 (start: 11830 size: 400) name: walls
+  patch 3 (start: 12230 size: 12000) name: frontAndBackPlanes
+
+End
+

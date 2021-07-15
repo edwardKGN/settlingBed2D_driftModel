@@ -1,0 +1,38 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 6-fa1285188035
+Exec   : setFields
+Date   : Jul 15 2021
+Time   : 10:53:18
+Host   : "edwardkgn-VirtualBox"
+PID    : 32622
+I/O    : uncollated
+Case   : /home/edwardkgn/OpenFOAM/edwardkgn-6/run/subbranch_toy_multiPhase_shrinkingParticle/2_TEST_settlingBed2D_multPh_polyDisp_driftModel_noEffect_01
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Reading setFieldsDict
+
+Setting field default values
+    Setting internal values of volScalarField alpha.water
+    Setting internal values of volScalarField alpha.solid
+
+Setting field region values
+    Adding cells with center within boxes 1((0 0 -0.1) (0.15 0.5 0.1))
+    Setting internal values of volScalarField alpha.water
+    Setting internal values of volScalarField alpha.solid
+
+End
+

@@ -1,0 +1,1 @@
+rm -r log.blockMesh log.setFields log.checkMesh constant/polyMesh

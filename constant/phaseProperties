@@ -1,0 +1,223 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      phaseProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type    populationBalanceTwoPhaseSystem;
+
+phases (solid water);
+
+populationBalances (particles);
+
+solid
+{
+    type          pureIsothermalPhaseModel;
+    diameterModel velocityGroup;
+
+    velocityGroupCoeffs
+    {
+	populationBalance	particles;
+	
+	formFactor	1;
+	
+	sizeGroups
+	(
+	     f0{d 11.6e-6; value 0;}
+	     f1{d 21.6e-6; value 0;}
+	     f2{d 31.6e-6; value 0;}
+	     f3{d 41.6e-6; value 0;}
+	     f4{d 51.6e-6; value 0;}
+	     f5{d 61.6e-6; value 0;}
+	     f6{d 71.6e-6; value 1;}
+	);
+    }
+
+    alphaMax        0.07;
+    residualAlpha   1e-6;
+}
+
+water
+{
+    type          pureIsothermalPhaseModel;
+
+    diameterModel constant;
+    constantCoeffs
+    {
+        d               1;
+    }
+
+    residualAlpha   0;
+}
+
+populationBalanceCoeffs
+{
+    particles
+    {
+        continuousPhase water;
+
+        coalescenceModels
+        ();
+
+        binaryBreakupModels
+        ();
+
+        breakupModels
+        (
+	    /*
+	    exponential
+            {
+                C 10.0;
+                exponent 1.0;
+                daughterSizeDistributionModel uniformBinary;
+            }
+	    */
+	);
+
+        driftModels
+        (
+	   /*
+	   constant
+	   {
+		N 	1;
+	   }
+	   */
+	   // phaseChange{} // Convert from Solid to Liquid -> Dissolution of Particles
+	   densityChange{}
+	);
+
+        nucleationModels
+        ();
+    }
+}
+
+
+blending
+{
+    default
+    {
+        type            none;
+        continuousPhase water;
+    }
+}
+
+surfaceTension
+(
+    (water and solid)
+    {
+        type            constant;
+        sigma           0.073;
+    }
+);
+
+
+aspectRatio
+(
+);
+
+drag
+(
+    (solid in water)
+    {
+        type            GidaspowErgunWenYu;
+        residualRe      1e-3;
+        swarmCorrection
+        {
+            type        none;
+        }
+    }
+);
+
+virtualMass
+(
+);
+
+heatTransfer
+(
+    (solid in water)
+    {
+        type            RanzMarshall;
+        residualAlpha   1e-4;
+    }
+);
+
+phaseTransfer
+(
+);
+
+/* Sample
+massTransfer.solid // Only for Solid to Water - May not account for interactions due to particles
+(
+    (solid in water) 
+    {
+        type spherical; // Spherical particle correlation
+        Le 5.0;
+    }
+
+    (water in solid)
+    {
+        type Frossling; // Surrounding liquid of spherical particle correlation
+        Le 5.0;
+    }
+);
+
+
+massTransfer.gas
+(
+    (gas in liquid)
+    {
+        type spherical;
+        Le 1.0;
+    }
+
+    (liquid in gas)
+    {
+        type Frossling;
+        Le 1.0;
+    }
+);
+
+massTransfer.liquid
+(
+    (gas in liquid)
+    {
+        type Frossling;
+        Le 1.0;
+    }
+
+    (liquid in gas)
+    {
+        type spherical;
+        Le 1.0;
+    }
+);
+*/
+
+
+lift
+(
+);
+
+wallLubrication
+(
+);
+
+turbulentDispersion
+(
+);
+
+// Minimum allowable pressure
+pMin            10000;
+
+// ************************************************************************* //

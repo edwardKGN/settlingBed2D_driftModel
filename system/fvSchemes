@@ -1,0 +1,81 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes; // Treat as Black Box - FVM
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default     Euler; // Crank-Nicolson; // Second Order Acc. -> Save Computational Power, from reduced Meshing
+}
+
+gradSchemes
+{
+    default     Gauss linear; // Interpolation -> Reduced Step Size, Save Computational Power
+}
+
+divSchemes
+{
+    default                         none; // Gauss linear;
+
+    "div\(phi,alpha.*\)"            Gauss vanLeer;
+    "div\(phir,alpha.*\)"           Gauss vanLeer;
+
+    "div\(alphaRhoPhi.*,U.*\)"      Gauss limitedLinearV 1;
+    "div\(phi.*,U.*\)"              Gauss limitedLinearV 1;
+
+    "div\(alphaRhoPhi.*,(h|e).*\)"  Gauss limitedLinear 1;
+    "div\(alphaRhoPhi.*,K.*\)"      Gauss limitedLinear 1;
+    "div\(alphaPhi.*,p\)"           Gauss limitedLinear 1;
+
+    div(alphaRhoPhi.solid,Theta.solid) Gauss limitedLinear 1;
+
+    "div\(alphaRhoPhi.*,(k|epsilon).*\)"  Gauss limitedLinear 1;
+
+    div((((alpha.water*thermo:rho.water)*nuEff.water)*dev2(T(grad(U.water))))) Gauss linear;
+
+    div((((thermo:rho.solid*nut.solid)*dev2(T(grad(U.solid))))+(((thermo:rho.solid*lambda.solid)*div(phi.solid))*I)))  Gauss linear;
+
+    div(alphaRhoPhi.solid,f) Gauss limitedLinear 1;
+}
+
+laplacianSchemes
+{
+    default     Gauss linear uncorrected;
+    bounded     Gauss linear uncorrected;
+}
+
+interpolationSchemes
+{
+    default     linear;
+}
+
+snGradSchemes
+{
+    default     uncorrected;
+    bounded     uncorrected;
+}
+
+fluxRequired
+{
+    default         no;
+}
+
+wallDist
+{
+    method      meshWave;
+}
+
+
+// ************************************************************************* //
